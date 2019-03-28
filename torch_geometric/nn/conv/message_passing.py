@@ -76,6 +76,10 @@ class MessagePassing(torch.nn.Module):
                         size[j] = tmp.size(0)
                     tmp = torch.index_select(tmp, 0, edge_index[j])
                 message_args.append(tmp)
+            elif arg == "size":
+                # The named argument size is shadowed by the keyword 
+                # argument and is not in kwargs.
+                message_args.append(size)
             else:
                 message_args.append(kwargs[arg])
 
